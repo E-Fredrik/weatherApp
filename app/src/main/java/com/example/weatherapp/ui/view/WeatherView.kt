@@ -40,7 +40,6 @@ fun WeatherView(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var cityInput by remember { mutableStateOf("") }
-    val weather by viewModel.weather.collectAsState()
 
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -285,6 +284,25 @@ fun WeatherDetails(
                         iconRepresentation = it.third
                     )
                 }
+            }
+
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                SunCardView(
+                    title = "SUNRISE",
+                    value = viewModel.formatTime(weather.sunriseTime),
+                    iconRes = R.drawable.vector
+                )
+                SunCardView(
+                    title = "SUNSET",
+                    value = viewModel.formatTime(weather.sunsetTime),
+                    iconRes = R.drawable.vector_21png
+                )
             }
         }
     }

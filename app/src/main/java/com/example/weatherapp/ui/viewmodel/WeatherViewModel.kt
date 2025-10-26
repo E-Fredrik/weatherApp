@@ -73,6 +73,18 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
     }
 
 
+    fun formatTime(epochSeconds: Int): String {
+        val timePattern = SimpleDateFormat("h:mm a", Locale.getDefault())
+        return try {
+            val epoch = epochSeconds.toLong()
+            val date = if (epoch > 1_000_000_000_000L) Date(epoch) else Date(epoch * 1000L)
+            timePattern.format(date)
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+
 
     val weatherDetails = weather.map {
         listOf(
